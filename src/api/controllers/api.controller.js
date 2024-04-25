@@ -10,6 +10,7 @@ export async function convertText(req, res, next) {
     }
     const voice = await apiService.createAudio(text);
     // res.setHeader("Content-disposition", "attachment; filename=audio.mp3");
+    res.setHeader("Content-Type", voice.contentType);
     res.write(Buffer.from(voice.stream.buffer));
     res.end();
     // res.send(Buffer.from(voice.stream.buffer));
