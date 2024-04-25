@@ -2,14 +2,17 @@ import * as apiService from "../../services/api.service.js";
 import httpCode from "http-status-codes";
 export async function convertText(req, res, next) {
   try {
-    const {text} =req.body
+    const { text } = req.body;
     if (!text || typeof text !== "string") {
-      const error= new Error("text is required and must be a string");
+      const error = new Error("text is required and must be a string");
       error.status = httpCode.BAD_REQUEST;
-      throw error
+      throw error;
     }
     const voice = await apiService.createAudio(text);
-    res.set(voice.headers).send(Buffer.from(voice.stream.buffer));
+    // res.setHeader("Content-disposition", "attachment; filename=audio.mp3");
+    res.write(Buffer.from(voice.stream.buffer));
+    res.end();
+    // res.send(Buffer.from(voice.stream.buffer));
   } catch (e) {
     next(e);
   }

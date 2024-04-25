@@ -15,8 +15,9 @@ import * as pollyService from '../aws/aws-polly.js'
 
     return {
       stream: stream,
-      headers: new Headers({
-        'Content-Type': voice.ContentType,
-      }),
+      // headers: new Headers({
+      //   'Content-Type': voice.ContentType,
+      // }),
+      contentType: voice.ContentType,
     };
   }
