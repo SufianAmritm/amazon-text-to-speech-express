@@ -19,8 +19,6 @@ export default {
     },
   ],
   apis: [
-    "src/models/*.js",
-    "src/utils/helpers/*.js",
-    "src/api/controllers/*.js",
+    "src/api/controllers/*.ts",
   ],
 };

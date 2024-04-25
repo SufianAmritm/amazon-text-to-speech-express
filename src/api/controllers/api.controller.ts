@@ -1,14 +1,15 @@
-import * as apiService from "../../services/api.service.js";
+import { NextFunction ,Request,Response} from "express";
+import * as apiService from "../../services/api.service";
 import httpCode from "http-status-codes";
-export async function convertText(req, res, next) {
+import { POLLY_AUDIO } from "src/services/types/api.service.type";
+export async function convertText(req:Request, res:Response, next:NextFunction) {
   try {
     const { text } = req.body;
     if (!text || typeof text !== "string") {
       const error = new Error("text is required and must be a string");
-      error.status = httpCode.BAD_REQUEST;
-      throw error;
+      res.status(httpCode.BAD_REQUEST).send(error.message);
     }
-    const voice = await apiService.createAudio(text);
+    const voice:POLLY_AUDIO = await apiService.createAudio(text);
     // res.setHeader("Content-disposition", "attachment; filename=audio.mp3");
     res.setHeader("Content-Type", voice.contentType);
     res.write(Buffer.from(voice.stream.buffer));

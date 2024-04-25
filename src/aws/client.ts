@@ -1,6 +1,6 @@
-import AWS from "@aws-sdk/client-polly";
+import AWS, { Polly } from "@aws-sdk/client-polly";
 
-const client = new AWS.Polly({
+const client:Polly = new AWS.Polly({
   region: "us-east-1",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
